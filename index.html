@@ -87,7 +87,7 @@ header{position:sticky;top:0;z-index:30;background:rgba(20,11,8,.92);backdrop-fi
 .pil h3{font-size:19px;margin-bottom:6px;color:var(--gold2)}
 .pil p{font-size:13.5px;color:var(--muted)}
 /* gallery */
-.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .g{aspect-ratio:1;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(45deg,#26160f,#26160f 10px,#2d1b13 10px,#2d1b13 20px);position:relative;display:flex;align-items:center;justify-content:center;color:#7d6652;font-size:12px;cursor:zoom-in}
 .g img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s}
 .g:hover img{transform:scale(1.06)}
@@ -384,9 +384,10 @@ document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.m;do
 /* signature + gallery */
 $('sig').innerHTML=SIG.map(([n,e,f])=>`<div class="sigc"><div class="ph">${e}<img src="images/${f}" alt="${n}" onerror="this.remove()"></div><div class="b"><h3>${n}</h3><span>${flat[n]&&flat[n].p?'₹'+flat[n].p:'Chef ka favorite'}</span><div style="margin-top:8px">${ctl(n)}</div></div></div>`).join('');
 const gal=$('gal'),lb=$('lb');
-GALLERY.forEach((f,i)=>{const d=document.createElement('div');d.className='g';d.textContent='Photo '+(i+1);
-  const im=new Image();im.alt='Zaika-e-Dilli photo '+(i+1);im.loading='lazy';
-  im.onload=()=>{d.textContent='';d.appendChild(im);d.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')}};im.src='images/'+f;gal.appendChild(d)});
+$('gallery').style.display='none';
+GALLERY.forEach((f,i)=>{const d=document.createElement('div');d.className='g';
+  const im=new Image();im.alt='Zaika-e-Dilli photo '+(i+1);
+  im.onload=()=>{d.appendChild(im);gal.appendChild(d);$('gallery').style.display='';d.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')}};im.src='images/'+f});
 lb.onclick=()=>lb.classList.remove('on');
 
 /* open/closed (assumed hours) */
