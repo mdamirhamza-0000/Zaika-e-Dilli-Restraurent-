@@ -145,7 +145,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
 .rsoc a{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:24px;margin:0}
 .rsoc img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:9px;background:#fff}
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:45;background:#fff;display:none;justify-content:space-around;gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.4)}
-.bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;font-size:12px;font-weight:600;color:#1c2b22;padding:7px 4px;border-radius:14px;position:relative;line-height:1.3}
+.bnav a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:0;font-size:12px;font-weight:600;color:#1c2b22;padding:7px 4px;border-radius:14px;position:relative;line-height:1.3}
 .bnav a span{font-size:20px}
 .bnav a.on{background:var(--maroon);color:#fff}
 .bnav b{top:2px;right:calc(50% - 22px)}
@@ -284,6 +284,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
 <nav class="bnav" id="bnav">
   <a href="#top" class="on" data-t="top"><span>🏠</span>Home</a>
   <a href="#craving" data-t="craving"><span>☰</span>Menu</a>
+  <a href="book.html" data-t="book" aria-label="Book a Table"><span>📅</span>Book</a>
   <a href="#" data-t="cart" onclick="openCart();return false"><span>🛒</span>Cart<b id="cc2">0</b></a>
   <a href="#" data-t="login" onclick="openLogin();return false"><span>👤</span><i id="ltxt" style="font-style:normal">Login</i></a>
 </nav>
