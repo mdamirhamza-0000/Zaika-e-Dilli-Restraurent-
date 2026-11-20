@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Book a Table | Zaika-e-Dilli</title>
-<meta name="description" content="Zaika-e-Dilli, Yamuna Vihar, Shahdara me table book karein: guests, date aur time chuno.">
+<meta name="description" content="Book a table at Zaika-e-Dilli, Yamuna Vihar, Shahdara: choose guests, date and time.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -56,15 +56,15 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 <main>
   <div class="eyebrow">Reservation</div>
   <h1>Book a Table</h1>
-  <p class="sub">Yamuna Vihar, Shahdara. Guests, date aur time chuno. Request restaurant ko WhatsApp par jayegi.</p>
+  <p class="sub">Yamuna Vihar, Shahdara. Choose your guests, date and time. Your request goes to the restaurant on WhatsApp.</p>
 
   <div class="card">
     <div class="f">
       <label>Number of guest(s)</label>
       <div class="stepper">
-        <button type="button" id="gm" aria-label="Kam karein">−</button>
+        <button type="button" id="gm" aria-label="Decrease">−</button>
         <div><output id="gn">2</output><small id="gl">guests</small></div>
-        <button type="button" id="gp" aria-label="Badhayein">+</button>
+        <button type="button" id="gp" aria-label="Increase">+</button>
       </div>
     </div>
 
@@ -79,23 +79,23 @@ input:focus,textarea:focus{outline:none;border-color:var(--gold)}
     </div>
 
     <div class="f">
-      <label for="nm">Aapka naam</label>
-      <input type="text" id="nm" placeholder="Naam" autocomplete="name">
+      <label for="nm">Your name</label>
+      <input type="text" id="nm" placeholder="Name" autocomplete="name">
     </div>
     <div class="f">
       <label for="ph">Mobile number</label>
-      <input type="tel" id="ph" inputmode="tel" maxlength="10" placeholder="10 digit number" autocomplete="tel-national">
+      <input type="tel" id="ph" inputmode="tel" maxlength="10" placeholder="10-digit number" autocomplete="tel-national">
     </div>
     <div class="f">
-      <label for="rq">Koi khaas request (optional)</label>
-      <textarea id="rq" rows="2" placeholder="Birthday, bacchon ke liye seat, etc."></textarea>
+      <label for="rq">Special request (optional)</label>
+      <textarea id="rq" rows="2" placeholder="Birthday, seat for kids, etc."></textarea>
     </div>
 
     <div class="sum" id="sum"></div>
-    <button class="btn wa" id="go">WhatsApp par booking bhejein</button>
-    <a class="btn ghost" href="tel:+919557359999">Ya call karein: +91 95573 59999</a>
+    <button class="btn wa" id="go">Send booking on WhatsApp</button>
+    <a class="btn ghost" href="tel:+919557359999">Or call us: +91 95573 59999</a>
     <div class="err" id="err"></div>
-    <p class="note">Booking tabhi pakki maani jayegi jab restaurant WhatsApp ya call par confirm kare.</p>
+    <p class="note">Your booking is confirmed only once the restaurant confirms it on WhatsApp or by phone.</p>
   </div>
 </main>
 
@@ -135,7 +135,7 @@ function paintSlots(){
     }
     if(chips)html+=`<div class="grp">${g}</div><div class="chips">${chips}</div>`;
   });
-  $('slots').innerHTML=any?html:'<p class="sub" style="margin:0">Aaj ke liye slot khatam ho gaye. Koi aur date chuno ya call karein.</p>';
+  $('slots').innerHTML=any?html:'<p class="sub" style="margin:0">No slots left for today. Please choose another date or call us.</p>';
   if(time&&!$('slots').querySelector('.chip.on'))time='';
   $('slots').querySelectorAll('.chip:not(:disabled)').forEach(c=>c.onclick=()=>{time=c.dataset.t;paintSlots();sum()});
 }
@@ -143,16 +143,16 @@ $('dt').onchange=()=>{paintSlots();sum()};
 
 function dlabel(){const v=$('dt').value;if(!v)return'';const [y,m,d]=v.split('-').map(Number);
   return new Date(y,m-1,d).toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
-function sum(){$('sum').innerHTML=`<b>${guests}</b> guest${guests>1?'s':''} · <b>${dlabel()||'date chuno'}</b> · <b>${time||'time chuno'}</b>`}
+function sum(){$('sum').innerHTML=`<b>${guests}</b> guest${guests>1?'s':''} · <b>${dlabel()||'choose a date'}</b> · <b>${time||'choose a time'}</b>`}
 
 $('go').onclick=()=>{
   const name=$('nm').value.trim(),ph=$('ph').value.trim();
   const e=$('err');e.textContent='';
-  if(!$('dt').value){e.textContent='Visit date chuno.';return}
-  if(!time){e.textContent='Time chuno.';return}
-  if(!name){e.textContent='Apna naam likhein.';return}
-  if(!/^[6-9]\d{9}$/.test(ph)){e.textContent='Sahi 10 digit mobile number likhein.';return}
-  let m=`*Zaika-e-Dilli: Table Booking Request*\nNaam: ${name}\nMobile: ${ph}\nGuests: ${guests}\nDate: ${dlabel()}\nTime: ${time}`;
+  if(!$('dt').value){e.textContent='Please choose a visit date.';return}
+  if(!time){e.textContent='Please choose a time.';return}
+  if(!name){e.textContent='Please enter your name.';return}
+  if(!/^[6-9]\d{9}$/.test(ph)){e.textContent='Please enter a valid 10-digit mobile number.';return}
+  let m=`*Zaika-e-Dilli: Table Booking Request*\nName: ${name}\nMobile: ${ph}\nGuests: ${guests}\nDate: ${dlabel()}\nTime: ${time}`;
   const rq=$('rq').value.trim();if(rq)m+=`\nRequest: ${rq}`;
   try{localStorage.setItem('zed_prof',JSON.stringify({name,phone:ph}))}catch(x){}
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(m)}`,'_blank');
