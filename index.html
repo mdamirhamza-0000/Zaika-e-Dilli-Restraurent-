@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zaika-e-Dilli | Pure Veg Restaurant, Yamuna Vihar, Shahdara, Delhi</title>
+<meta name="description" content="Zaika-e-Dilli: pure vegetarian North Indian, Mughlai, South Indian aur Chinese khana. Yamuna Vihar, Shahdara, Delhi. Family ke liye AC seating, takeaway aur reservation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--maroon:#7a1f1f;--saffron:#e8891d;--cream:#fff7ea;--ink:#2a1a14;--muted:#6f5d52;--card:#ffffff;--line:#efdfc8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.2}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+section{padding:56px 0}
+h2{font-size:30px;color:var(--maroon);margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:28px}
+/* nav */
+header{position:sticky;top:0;z-index:20;background:rgba(255,247,234,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--maroon)}
+.logo span{color:var(--saffron)}
+nav a{margin-left:18px;font-size:14px;font-weight:500;color:var(--muted)}
+nav a:hover{color:var(--maroon)}
+@media(max-width:700px){nav a.hide-m{display:none}}
+/* hero */
+.hero{background:linear-gradient(135deg,rgba(122,31,31,.94),rgba(60,14,14,.94)),url('images/hero.jpg') center/cover;color:#fff;padding:84px 0 72px;text-align:center}
+.hero .tag{display:inline-block;background:var(--saffron);color:#2a1200;font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px;letter-spacing:.5px;margin-bottom:16px}
+.hero h1{font-size:clamp(36px,8vw,60px);margin-bottom:12px}
+.hero p{max-width:560px;margin:0 auto 26px;opacity:.92}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:99px;font-weight:600;font-size:14px;border:2px solid transparent}
+.btn.primary{background:var(--saffron);color:#2a1200}
+.btn.ghost{border-color:#fff;color:#fff}
+.btn.dark{background:var(--maroon);color:#fff}
+.btn.line{border-color:var(--maroon);color:var(--maroon)}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:8px 16px;border-radius:12px;font-size:13px}
+.stat b{display:block;font-size:18px;color:#ffd79a}
+/* about */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{background:#fff;border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-size:13px}
+.photo{aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#f1e2c9}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+/* menu */
+#menu{background:#fff}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:18px}
+.tab{flex:0 0 auto;cursor:pointer;border:1px solid var(--line);background:var(--cream);padding:8px 18px;border-radius:99px;font:500 14px 'Poppins',sans-serif;color:var(--ink)}
+.tab.on{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.item h3{font-family:'Poppins',sans-serif;font-size:15px;font-weight:600}
+.item p{font-size:12.5px;color:var(--muted)}
+.veg{display:inline-block;width:13px;height:13px;border:1.5px solid #1f9d3a;margin-right:6px;position:relative;vertical-align:-1px}
+.veg::after{content:'';position:absolute;inset:2px;border-radius:50%;background:#1f9d3a}
+.price{font-weight:600;color:var(--maroon);white-space:nowrap}
+.price.na{font-weight:500;color:var(--muted);font-size:12px}
+.note{margin-top:18px;font-size:13px;color:var(--muted)}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.gal .g{aspect-ratio:1;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(45deg,#f6e8d0,#f6e8d0 10px,#f1dfc1 10px,#f1dfc1 20px);position:relative;cursor:zoom-in;display:flex;align-items:center;justify-content:center;color:#a98a62;font-size:12px;text-align:center;padding:10px}
+.gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.gal .g:hover img{transform:scale(1.05)}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:90vh;border-radius:10px}
+/* find */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h3{font-size:17px;margin-bottom:6px;color:var(--maroon)}
+.card p,.card li{font-size:14px;color:var(--muted)}
+.card ul{list-style:none}
+.map{border:0;width:100%;height:320px;border-radius:16px}
+/* social */
+.social{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.soc{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;font-weight:600;transition:.2s}
+.soc small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
+.soc:hover{border-color:var(--saffron);transform:translateY(-2px)}
+footer{background:#2a1209;color:#e9d9c6;text-align:center;padding:30px 18px;font-size:13px}
+footer a{color:#ffd79a}
+.fab{position:fixed;right:14px;bottom:14px;display:flex;flex-direction:column;gap:10px;z-index:30}
+.fab a{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+
+<header><div class="wrap nav">
+  <a href="#top" class="logo">Zaika<span>-e-</span>Dilli</a>
+  <nav><a href="#about" class="hide-m">About</a><a href="#menu">Menu</a><a href="#gallery" class="hide-m">Gallery</a><a href="#find">Contact</a></nav>
+</div></header>
+
+<div id="top" class="hero"><div class="wrap">
+  <span class="tag">100% PURE VEG</span>
+  <h1>Zaika-e-Dilli</h1>
+  <p>Dilli ka asli swaad: malai chaap, paneer tikka, thali aur bahut kuch. Family ke saath baithne ke liye AC restaurant, Yamuna Vihar, Shahdara me.</p>
+  <div class="btns">
+    <a class="btn primary" href="tel:+919557359999">📞 Table book / Call</a>
+    <a class="btn ghost" href="#menu">Menu dekhein</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>4.1 ★</b>Zomato</div>
+    <div class="stat"><b>₹600–800</b>for two</div>
+    <div class="stat"><b>Pure Veg</b>AC • Family</div>
+  </div>
+</div></div>
+
+<section id="about"><div class="wrap grid2">
+  <div>
+    <h2>Hamare baare me</h2>
+    <p>Zaika-e-Dilli ek pure vegetarian restaurant hai jahan North Indian, Mughlai, South Indian aur Chinese, sab ek chhat ke neeche milta hai. Comfortable AC seating, themed decor aur family-friendly mahaul, isliye parivaar aur doston ke saath aane ke liye ye ek pasandida jagah hai.</p>
+    <div class="pills">
+      <span class="pill">🥗 Pure Veg</span><span class="pill">❄️ AC Seating</span><span class="pill">👨‍👩‍👧 Family Friendly</span>
+      <span class="pill">🥡 Takeaway</span><span class="pill">🅿️ Parking</span><span class="pill">📶 Wi-Fi</span><span class="pill">🪑 Reservation</span>
+    </div>
+  </div>
+  <div class="photo"><img src="images/about.jpg" alt="Zaika-e-Dilli restaurant" onerror="this.style.display='none'"></div>
+</div></section>
+
+<section id="menu"><div class="wrap">
+  <h2>Hamara Menu</h2>
+  <p class="sub">Kuch mashhoor dishes. Poora menu aur latest rates Zomato / Swiggy par dekhein.</p>
+  <div class="tabs" id="tabs"></div>
+  <div class="items" id="items"></div>
+  <p class="note">* Prices indicative hain aur badal sakte hain. Jahan rate nahi likha wahan restaurant se pooch lein.</p>
+  <div class="btns" style="justify-content:flex-start;margin-top:16px">
+    <a class="btn dark" href="https://www.zomato.com/ncr/zaika-e-dilli-shahdara-new-delhi/menu" target="_blank" rel="noopener">Poora menu: Zomato</a>
+  </div>
+</div></section>
+
+<section id="gallery"><div class="wrap">
+  <h2>Photo Gallery</h2>
+  <p class="sub">Hamare khane aur restaurant ki jhalak.</p>
+  <div class="gal" id="gal"></div>
+</div></section>
+<div id="lb"><img alt=""></div>
+
+<section id="find" style="background:#fff"><div class="wrap">
+  <h2>Hume yahan milein</h2>
+  <p class="sub">Aaiye, ya call karke table reserve karein.</p>
+  <div class="cards">
+    <div class="card"><h3>📍 Address</h3><p>C-9/17, CH Mahender Singh Marg, Block C, Yamuna Vihar, Shahdara, New Delhi 110053<br>(Pratibha School ke saamne)</p></div>
+    <div class="card"><h3>📞 Phone</h3><ul><li><a href="tel:+919557359999">+91 95573 59999</a></li><li><a href="tel:+919711343600">+91 97113 43600</a></li></ul></div>
+    <div class="card"><h3>🕒 Timing</h3><p>Roz: lagbhag 11:00 AM – 11:00 PM<br><small>(Aane se pehle call karke confirm kar lein)</small></p></div>
+  </div>
+  <iframe class="map" loading="lazy" title="Zaika-e-Dilli map" src="https://maps.google.com/maps?q=28.7001726,77.272192&z=16&output=embed"></iframe>
+  <div class="btns" style="margin-top:16px">
+    <a class="btn dark" href="https://www.google.com/maps/search/?api=1&query=28.7001726,77.272192" target="_blank" rel="noopener">Google Maps par directions</a>
+    <a class="btn line" href="tel:+919557359999">Abhi call karein</a>
+  </div>
+</div></section>
+
+<section id="social"><div class="wrap">
+  <h2>Order &amp; Follow</h2>
+  <p class="sub">Hume online order karein ya social media par follow karein.</p>
+  <div class="social">
+    <a class="soc" href="https://www.zomato.com/ncr/zaika-e-dilli-shahdara-new-delhi/order" target="_blank" rel="noopener">🍽️ Zomato<small>Order &amp; reviews</small></a>
+    <a class="soc" href="https://www.swiggy.com/restaurants/zaika-e-dilli-yamuna-vihar-shahdara-75424/dineout" target="_blank" rel="noopener">🛵 Swiggy<small>Dineout offers</small></a>
+    <a class="soc" href="https://www.instagram.com/zaika_e_dilli_restaurant/" target="_blank" rel="noopener">📸 Instagram<small>@zaika_e_dilli_restaurant</small></a>
+    <a class="soc" href="https://www.facebook.com/zaikaedilli/" target="_blank" rel="noopener">👍 Facebook<small>Zaika-e-dilli Restaurant</small></a>
+    <a class="soc" href="https://magicpin.in/New-Delhi/Shahdara/Restaurant/Zaika-E-Dilli/store/1b64/" target="_blank" rel="noopener">🎟️ magicpin<small>Offers</small></a>
+    <a class="soc" href="https://www.google.com/maps/search/?api=1&query=Zaika+e+Dilli+Yamuna+Vihar+Shahdara" target="_blank" rel="noopener">⭐ Google<small>Maps &amp; reviews</small></a>
+  </div>
+</div></section>
+
+<footer>
+  <p><b>Zaika-e-Dilli</b> · C-9/17, Yamuna Vihar, Shahdara, Delhi 110053 · <a href="tel:+919557359999">+91 95573 59999</a></p>
+  <p style="margin-top:6px;opacity:.7">© <span id="yr"></span> Zaika-e-Dilli. All rights reserved.</p>
+</footer>
+
+<div class="fab">
+  <a href="tel:+919557359999" style="background:#1f9d3a" aria-label="Call">📞</a>
+  <a href="https://wa.me/919557359999?text=Namaste%2C%20mujhe%20table%20book%20karni%20hai" target="_blank" rel="noopener" style="background:#25d366" aria-label="WhatsApp">💬</a>
+</div>
+
+<script>
+/* ====== EDIT HERE: menu ======
+   price: number ya null (null = "Rate poochein").
+   Zomato / Swiggy ke menu se aur dishes yahan add kar sakte ho. */
+const MENU = {
+  "Thali & Mains": [
+    {n:"Deluxe Thali",d:"Poori thali, sabzi, dal, roti, rice, meetha",p:null,img:""},
+    {n:"Zaika Thali",d:"Ghar jaisa poora khana",p:330},
+    {n:"Paneer Butter Masala",d:"Makhani gravy me soft paneer",p:null},
+    {n:"Kadhai Paneer",d:"Kadhai masale ke saath",p:null},
+    {n:"Makhani Dal",d:"Dheemi aanch par pakki dal",p:null}
+  ],
+  "Starters & Chaap": [
+    {n:"Malai Chaap",d:"Creamy, soft soya chaap",p:null},
+    {n:"Stuffed Chaap",d:"Masaledar bharwa chaap",p:null},
+    {n:"Paneer Tikka",d:"Tandoor me bhuna paneer",p:null},
+    {n:"Malai Chaap Roll",d:"Roll me malai chaap",p:null},
+    {n:"Honey Chilli Potato",d:"Meetha-teekha crispy aloo",p:null},
+    {n:"Momos",d:"Steam / fried momos",p:null}
+  ],
+  "Breads": [
+    {n:"Plain Roti",d:"Tandoori roti",p:30},
+    {n:"Butter Naan",d:"Makkhan wala naan",p:60},
+    {n:"Aloo Paratha",d:"Aloo bhara paratha",p:60},
+    {n:"Aloo Naan",d:"Aloo stuffed naan",p:70},
+    {n:"Stuffed Naan",d:"Bharwa naan",p:70},
+    {n:"Paneer Naan",d:"Paneer stuffed naan",p:null}
+  ],
+  "Desserts": [
+    {n:"Kheer",d:"Dudh aur chawal ki mithaas",p:null},
+    {n:"Gulab Jamun",d:"Garam, chashni me dooba",p:null}
+  ]
+};
+/* ====== EDIT HERE: gallery ======
+   Photos ko images/ folder me daalo aur naam yahan likho. */
+const GALLERY = ["gallery-1.jpg","gallery-2.jpg","gallery-3.jpg","gallery-4.jpg","gallery-5.jpg","gallery-6.jpg","gallery-7.jpg","gallery-8.jpg"];
+
+const tabs=document.getElementById('tabs'),items=document.getElementById('items');
+function show(cat){
+  [...tabs.children].forEach(b=>b.classList.toggle('on',b.dataset.c===cat));
+  items.innerHTML=MENU[cat].map(i=>`<div class="item"><div><h3><span class="veg"></span>${i.n}</h3><p>${i.d}</p></div>${i.p?`<span class="price">₹${i.p}</span>`:`<span class="price na">Rate poochein</span>`}</div>`).join('');
+}
+Object.keys(MENU).forEach(c=>{const b=document.createElement('button');b.className='tab';b.textContent=c;b.dataset.c=c;b.onclick=()=>show(c);tabs.appendChild(b)});
+show(Object.keys(MENU)[0]);
+
+const gal=document.getElementById('gal'),lb=document.getElementById('lb');
+GALLERY.forEach((f,i)=>{
+  const d=document.createElement('div');d.className='g';d.textContent='Photo '+(i+1);
+  const im=new Image();im.alt='Zaika-e-Dilli photo '+(i+1);im.loading='lazy';
+  im.onload=()=>{d.textContent='';d.appendChild(im);d.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')}};
+  im.src='images/'+f;
+});
+lb.onclick=()=>lb.classList.remove('on');
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
