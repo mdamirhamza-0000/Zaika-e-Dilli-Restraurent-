@@ -55,6 +55,7 @@ header{position:sticky;top:0;z-index:30;background:rgba(20,11,8,.92);backdrop-fi
 /* categories */
 #craving{background:var(--bg2)}
 .cats{display:flex;flex-wrap:wrap;gap:10px}
+@media(max-width:820px){.cats{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}.cat{flex:0 0 auto}}
 .cat{border:1px solid var(--line);background:var(--panel);color:var(--cream);padding:10px 20px;border-radius:99px;font-size:14px;font-weight:500;transition:.2s}
 .cat:hover{border-color:var(--gold)}
 .cat.on{background:var(--gold);color:#2a1700;border-color:var(--gold)}
@@ -71,6 +72,11 @@ header{position:sticky;top:0;z-index:30;background:rgba(20,11,8,.92);backdrop-fi
 .qty{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#2a1700;border-radius:10px;padding:4px 10px;font-weight:700}
 .qty button{background:none;border:0;font-size:18px;font-weight:700;color:#2a1700;width:22px}
 .note{font-size:12.5px;color:var(--muted);margin-top:18px}
+.cover{grid-column:1/-1;position:relative;height:170px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#4a2014,#1d110c);display:flex;align-items:flex-end;padding:18px;border:1px solid var(--line)}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,11,8,.05),rgba(20,11,8,.85))}
+.cover h3{position:relative;z-index:2;font-size:26px}
+.cover .ce{position:absolute;right:18px;top:12px;font-size:34px;z-index:2;opacity:.9}
 /* signature */
 .sig{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .sigc{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel)}
@@ -157,6 +163,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
 </div></header>
 
 <div id="top" class="hero">
+  <img class="bgimg" src="images/hero.jpg" alt="" onerror="this.remove()">
   <video autoplay muted loop playsinline poster="images/hero.jpg" onerror="this.remove()"><source src="images/hero.mp4" type="video/mp4"></video>
   <div class="wrap">
     <div class="badges"><span class="badge">🌿 100% Pure Veg</span><span class="badge">Fresh Made</span><span class="badge">Family Friendly</span></div>
@@ -184,7 +191,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
   <p class="sub">Category chuno, dish add karo, aur WhatsApp par order bhej do.</p>
   <div class="cats" id="cats"></div>
   <div class="items" id="items"></div>
-  <p class="note">* Rates indicative hain. "Rate poochein" wali dishes ka rate order confirm karte waqt bataya jayega. Poora menu Zomato par bhi hai.</p>
+  <p class="note">* Rates indicative hain. "Rate poochein" wali dishes ka rate order confirm karte waqt bataya jayega. Rates ke liye restaurant se confirm karein ya Zomato dekhein.</p>
   <div class="btnrow" style="margin-top:14px"><a class="btn red" href="https://www.zomato.com/ncr/zaika-e-dilli-shahdara-new-delhi/menu" target="_blank" rel="noopener">Poora menu: Zomato</a></div>
 </div></section>
 
@@ -306,33 +313,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
 
 <script>
 /* ====== EDIT HERE: menu ====== p:null => "Rate poochein" */
-const MENU={
- "Thali & Mains":[
-  {n:"Deluxe Thali",d:"Sabzi, dal, roti, rice aur meetha",p:null},
-  {n:"Zaika Thali",d:"Ghar jaisa poora khana",p:330},
-  {n:"Paneer Butter Masala",d:"Makhani gravy me soft paneer",p:null},
-  {n:"Kadhai Paneer",d:"Kadhai masale ke saath",p:null},
-  {n:"Makhani Dal",d:"Dheemi aanch par pakki dal",p:null}],
- "Starters & Chaap":[
-  {n:"Malai Chaap",d:"Creamy, soft soya chaap",p:null},
-  {n:"Stuffed Chaap",d:"Masaledar bharwa chaap",p:null},
-  {n:"Paneer Tikka",d:"Tandoor me bhuna paneer",p:null},
-  {n:"Malai Chaap Roll",d:"Roll me malai chaap",p:null},
-  {n:"Honey Chilli Potato",d:"Meetha-teekha crispy aloo",p:null},
-  {n:"Momos",d:"Garam momos, chutney ke saath",p:null}],
- "Breads":[
-  {n:"Plain Roti",d:"Tandoori roti",p:30},
-  {n:"Butter Naan",d:"Makkhan wala naan",p:60},
-  {n:"Aloo Paratha",d:"Aloo bhara paratha",p:60},
-  {n:"Aloo Naan",d:"Aloo stuffed naan",p:70},
-  {n:"Stuffed Naan",d:"Bharwa naan",p:70},
-  {n:"Paneer Naan",d:"Paneer stuffed naan",p:null}],
- "Desserts":[
-  {n:"Kheer",d:"Dudh aur chawal ki mithaas",p:null},
-  {n:"Gulab Jamun",d:"Garam, chashni me dooba",p:null}]
-};
+const MENU={"Thali": [{"n": "Deluxe Thali", "d": "Sabzi, dal, roti, rice aur meetha", "p": null}, {"n": "Zaika Thali", "d": "Ghar jaisa poora khana", "p": null}], "Main Course": [{"n": "Shahi Paneer", "d": "", "p": null}, {"n": "Kadhai Paneer", "d": "", "p": null}, {"n": "Paneer Butter Masala", "d": "", "p": null}, {"n": "Paneer Do Pyaza", "d": "", "p": null}, {"n": "Paneer Tikka Masala", "d": "", "p": null}, {"n": "Palak Paneer", "d": "", "p": null}, {"n": "Matar Paneer", "d": "", "p": null}, {"n": "Paneer Masala", "d": "", "p": null}, {"n": "Paneer Lababdar", "d": "", "p": null}, {"n": "Paneer Makhani", "d": "", "p": null}, {"n": "Paneer Khurchan", "d": "", "p": null}, {"n": "Cheese Paneer Masala", "d": "", "p": null}, {"n": "Shahi Chaap", "d": "", "p": null}, {"n": "Kadhai Chaap", "d": "", "p": null}, {"n": "Chaap Butter Masala", "d": "", "p": null}, {"n": "Matar Mushroom", "d": "", "p": null}, {"n": "Mushroom Masala", "d": "", "p": null}, {"n": "Malai Kofta", "d": "", "p": null}, {"n": "Dal Makhani", "d": "", "p": null}, {"n": "Yellow Dal Tadka", "d": "", "p": null}, {"n": "Mix Veg", "d": "", "p": null}, {"n": "Rajma", "d": "", "p": null}, {"n": "Chana Masala", "d": "", "p": null}, {"n": "Palak Kofta", "d": "", "p": null}, {"n": "Aloo Gobhi", "d": "", "p": null}, {"n": "Jeera Aloo", "d": "", "p": null}, {"n": "Vegetable Tawa Fry", "d": "", "p": null}, {"n": "Aloo Tawa Fry", "d": "", "p": null}], "Starters & Chaap": [{"n": "Malai Chaap", "d": "Creamy, soft soya chaap", "p": null}, {"n": "Stuffed Chaap", "d": "Masaledar bharwa chaap", "p": null}, {"n": "Paneer Tikka", "d": "Tandoor me bhuna paneer", "p": null}, {"n": "Malai Chaap Roll", "d": "Roll me malai chaap", "p": null}, {"n": "Spring Roll", "d": "", "p": null}], "Rotis & Breads": [{"n": "Plain Roti", "d": "", "p": null}, {"n": "Rumali Roti", "d": "", "p": null}, {"n": "Butter Roti", "d": "", "p": null}, {"n": "Missi Roti", "d": "", "p": null}, {"n": "Plain Naan", "d": "", "p": null}, {"n": "Butter Naan", "d": "", "p": null}, {"n": "Aloo Naan", "d": "", "p": null}, {"n": "Stuffed Naan", "d": "", "p": null}, {"n": "Paneer Naan", "d": "", "p": null}, {"n": "Garlic Naan", "d": "", "p": null}, {"n": "Cheese Garlic Naan", "d": "", "p": null}, {"n": "Garlic Paratha", "d": "", "p": null}, {"n": "Aloo Paratha", "d": "", "p": null}, {"n": "Pudina Paratha", "d": "", "p": null}, {"n": "Chilli Paratha", "d": "", "p": null}, {"n": "Matar Paratha", "d": "", "p": null}, {"n": "Aloo Kulcha", "d": "", "p": null}], "Rice & Pulao": [{"n": "Jeera Rice", "d": "", "p": null}, {"n": "Matar Paneer Rice", "d": "", "p": null}, {"n": "Veg Biryani", "d": "", "p": null}, {"n": "Hyderabadi Biryani", "d": "", "p": null}, {"n": "Veg Pulao", "d": "", "p": null}, {"n": "Zaika Pulao", "d": "", "p": null}, {"n": "Matar Pulao", "d": "", "p": null}, {"n": "Fried Rice", "d": "", "p": null}, {"n": "Garlic Rice", "d": "", "p": null}, {"n": "Paneer Fried Rice", "d": "", "p": null}, {"n": "Veg Schezwan Rice", "d": "", "p": null}, {"n": "Chilli Garlic Fried Rice", "d": "", "p": null}], "Raita": [{"n": "Mix Raita", "d": "", "p": null}, {"n": "Boondi Raita", "d": "", "p": null}, {"n": "Dahi Masala", "d": "", "p": null}, {"n": "Onion Raita", "d": "", "p": null}, {"n": "Cucumber Raita", "d": "", "p": null}, {"n": "Onion Tomato Raita", "d": "", "p": null}], "Chinese": [{"n": "Veg Chowmein", "d": "", "p": null}, {"n": "Singapuri Chowmein", "d": "", "p": null}, {"n": "Butter Chowmein", "d": "", "p": null}, {"n": "Paneer Chowmein", "d": "", "p": null}, {"n": "Chilli Garlic Chowmein", "d": "", "p": null}, {"n": "Butter Paneer Chowmein", "d": "", "p": null}, {"n": "Chilli Potato", "d": "", "p": null}, {"n": "Honey Chilli", "d": "", "p": null}, {"n": "Manchurian (Dry)", "d": "", "p": null}, {"n": "Manchurian (Gravy)", "d": "", "p": null}, {"n": "Chilli Paneer", "d": "", "p": null}, {"n": "Chilli Mushroom", "d": "", "p": null}, {"n": "Paneer Manchurian", "d": "", "p": null}], "South Indian": [{"n": "Idli", "d": "", "p": null}, {"n": "Vada (2 pcs)", "d": "", "p": null}, {"n": "Sambhar Vada (2 pcs)", "d": "", "p": null}, {"n": "Idli Manchurian", "d": "", "p": null}, {"n": "Schezwan Idli Manchurian", "d": "", "p": null}, {"n": "Paneer Idli Manchurian", "d": "", "p": null}, {"n": "Cheese Idli Manchurian", "d": "", "p": null}, {"n": "Lemon Rice", "d": "", "p": null}, {"n": "Tomato Rice", "d": "", "p": null}, {"n": "Sambhar Rice", "d": "", "p": null}, {"n": "Curd Rice", "d": "", "p": null}, {"n": "Plain Dosa", "d": "", "p": null}, {"n": "Masala Dosa", "d": "", "p": null}, {"n": "Butter Masala Dosa", "d": "", "p": null}, {"n": "Mysore Masala Dosa", "d": "", "p": null}, {"n": "Paneer Dosa", "d": "", "p": null}], "Pav Bhaji & Pasta": [{"n": "Pav Bhaji", "d": "", "p": null}, {"n": "Cheese Pav Bhaji", "d": "", "p": null}, {"n": "Extra Pav", "d": "", "p": null}, {"n": "Red Sauce Pasta", "d": "", "p": null}, {"n": "White Sauce Pasta", "d": "", "p": null}, {"n": "Mix Sauce Pasta", "d": "", "p": null}, {"n": "Double Cheese Pasta", "d": "", "p": null}], "Momos": [{"n": "Steam Momos", "d": "", "p": null}, {"n": "Fry Momos", "d": "", "p": null}, {"n": "Kurkure Momos", "d": "", "p": null}, {"n": "Creamy Momos", "d": "", "p": null}], "Sweets": [{"n": "Gulab Jamun", "d": "Garam, chashni me dooba", "p": null}, {"n": "Paneer Jalebi (1 pc)", "d": "", "p": null}, {"n": "Kheer", "d": "Dudh aur chawal ki mithaas", "p": null}], "Party Combo": [{"n": "Party Combo ₹600", "d": "3 starter + 3 main course + 3 types of breads + choice of rice + raita + green salad + welcome drink + 1 dessert", "p": 600}, {"n": "Party Combo ₹700", "d": "4 starter + 4 main course + 4 types of breads + choice of rice + raita + green salad + welcome drink + 1 dessert", "p": 700}]};
+const CATMETA={"Thali": ["sig-1.jpg", "🍛"], "Main Course": ["sig-3.jpg", "🍲"], "Starters & Chaap": ["about.jpg", "🔥"], "Rotis & Breads": ["gallery-4.jpg", "🫓"], "Rice & Pulao": ["hero.jpg", "🍚"], "Raita": ["cat-raita.jpg", "🥣"], "Chinese": ["cat-chinese.jpg", "🍜"], "South Indian": ["cat-south.jpg", "🥞"], "Pav Bhaji & Pasta": ["cat-pavbhaji.jpg", "🍝"], "Momos": ["cat-momos.jpg", "🥟"], "Sweets": ["cat-sweets.jpg", "🍮"], "Party Combo": ["cat-combo.jpg", "🎉"]};
 /* Signature: naam MENU se, photo: images/sig-1.jpg ... */
-const SIG=[["Malai Chaap","🔥","sig-1.jpg"],["Deluxe Thali","🍛","sig-2.jpg"],["Paneer Tikka","🧀","sig-3.jpg"],["Kheer","🍮","sig-4.jpg"]];
+const SIG=[["Deluxe Thali","🍛","sig-1.jpg"],["Paneer Butter Masala","🍅","sig-2.jpg"],["Kadhai Paneer","🥘","sig-3.jpg"],["Dal Makhani","🍲","sig-4.jpg"]];
 const GALLERY=["gallery-1.jpg","gallery-2.jpg","gallery-3.jpg","gallery-4.jpg","gallery-5.jpg","gallery-6.jpg","gallery-7.jpg","gallery-8.jpg"];
 const WA="919557359999", OPEN_H=11, CLOSE_H=23;
 
@@ -349,7 +333,9 @@ function renderCats(){
 function ctl(n){const q=cart[n]||0;
   return q?`<span class="qty"><button data-a="-" data-n="${n}">−</button>${q}<button data-a="+" data-n="${n}">+</button></span>`:`<button class="add" data-a="+" data-n="${n}">ADD</button>`}
 function renderItems(){
-  $('items').innerHTML=MENU[cat].map(i=>`<div class="item"><div class="top"><div><h3><span class="veg"></span>${i.n}</h3><p>${i.d}</p></div>${i.p?`<span class="price">₹${i.p}</span>`:`<span class="price na">Rate poochein</span>`}</div>${ctl(i.n)}</div>`).join('');
+  const cm=CATMETA[cat]||["",""];
+  const cover=`<div class="cover"><img src="images/${cm[0]}" alt="" onerror="this.remove()"><span class="ce">${cm[1]}</span><h3>${cat}</h3></div>`;
+  $('items').innerHTML=cover+MENU[cat].map(i=>`<div class="item"><div class="top"><div><h3><span class="veg"></span>${i.n}</h3>${i.d?`<p>${i.d}</p>`:''}</div>${i.p?`<span class="price">₹${i.p}</span>`:`<span class="price na">Rate poochein</span>`}</div>${ctl(i.n)}</div>`).join('');
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]');if(!b)return;
