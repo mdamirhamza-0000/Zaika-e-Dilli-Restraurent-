@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Table | Zaika-e-Dilli</title>
+<meta name="description" content="Zaika-e-Dilli, Yamuna Vihar, Shahdara me table book karein: guests, date aur time chuno.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#140b08;--bg2:#1d110c;--panel:#26160f;--line:#3a2418;--gold:#e0a84a;--gold2:#f3c872;--maroon:#8c2323;--cream:#fff4e0;--muted:#b7a28d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.6;min-height:100vh}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.15}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font-family:inherit}
+header{border-bottom:1px solid var(--line);background:rgba(20,11,8,.95)}
+.nav{max-width:640px;margin:0 auto;padding:0 18px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Playfair Display',serif;font-weight:800;font-size:21px}
+.logo span{color:var(--gold)}
+.back{font-size:14px;color:var(--gold2);border:1px solid var(--line);padding:8px 14px;border-radius:99px}
+main{max-width:640px;margin:0 auto;padding:30px 18px 60px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+h1{font-size:clamp(30px,7vw,42px);margin-bottom:8px}
+.sub{color:var(--muted);margin-bottom:24px;font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}
+.f{margin-bottom:20px}
+.f>label{display:block;font-size:13px;color:var(--gold2);font-weight:600;margin-bottom:8px}
+.stepper{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:6px}
+.stepper button{width:44px;height:44px;border-radius:10px;border:0;background:var(--gold);color:#2a1700;font-size:24px;font-weight:700;cursor:pointer}
+.stepper button:disabled{opacity:.35}
+.stepper output{font-size:20px;font-weight:600}
+.stepper small{display:block;font-size:11px;color:var(--muted);font-weight:400;text-align:center}
+input[type=date],input[type=text],input[type=tel],textarea{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--cream);border-radius:14px;padding:13px 14px;font-size:15px;color-scheme:dark}
+input:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--bg2);color:var(--cream);padding:9px 14px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer}
+.chip.on{background:var(--gold);color:#2a1700;border-color:var(--gold)}
+.chip:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.grp{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:10px 0 6px}
+.btn{display:block;width:100%;border:0;border-radius:99px;padding:15px;font-weight:600;font-size:15px;text-align:center;cursor:pointer}
+.btn.wa{background:#25d366;color:#052e14}
+.btn.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold2);margin-top:10px}
+.sum{background:var(--bg2);border:1px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--muted);margin-bottom:18px}
+.sum b{color:var(--cream)}
+.note{font-size:12px;color:var(--muted);margin-top:12px;text-align:center}
+.err{color:#ff8a7a;font-size:13px;margin-top:8px;min-height:18px}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <a href="index.html" class="logo">Zaika<span>-e-</span>Dilli</a>
+  <a href="index.html" class="back">← Home</a>
+</div></header>
+
+<main>
+  <div class="eyebrow">Reservation</div>
+  <h1>Book a Table</h1>
+  <p class="sub">Yamuna Vihar, Shahdara. Guests, date aur time chuno. Request restaurant ko WhatsApp par jayegi.</p>
+
+  <div class="card">
+    <div class="f">
+      <label>Number of guest(s)</label>
+      <div class="stepper">
+        <button type="button" id="gm" aria-label="Kam karein">−</button>
+        <div><output id="gn">2</output><small id="gl">guests</small></div>
+        <button type="button" id="gp" aria-label="Badhayein">+</button>
+      </div>
+    </div>
+
+    <div class="f">
+      <label for="dt">Visit date</label>
+      <input type="date" id="dt">
+    </div>
+
+    <div class="f">
+      <label>Time</label>
+      <div id="slots"></div>
+    </div>
+
+    <div class="f">
+      <label for="nm">Aapka naam</label>
+      <input type="text" id="nm" placeholder="Naam" autocomplete="name">
+    </div>
+    <div class="f">
+      <label for="ph">Mobile number</label>
+      <input type="tel" id="ph" inputmode="tel" maxlength="10" placeholder="10 digit number" autocomplete="tel-national">
+    </div>
+    <div class="f">
+      <label for="rq">Koi khaas request (optional)</label>
+      <textarea id="rq" rows="2" placeholder="Birthday, bacchon ke liye seat, etc."></textarea>
+    </div>
+
+    <div class="sum" id="sum"></div>
+    <button class="btn wa" id="go">WhatsApp par booking bhejein</button>
+    <a class="btn ghost" href="tel:+919557359999">Ya call karein: +91 95573 59999</a>
+    <div class="err" id="err"></div>
+    <p class="note">Booking tabhi pakki maani jayegi jab restaurant WhatsApp ya call par confirm kare.</p>
+  </div>
+</main>
+
+<script>
+const WA="919557359999", OPEN=[11,0], LAST=[22,30], MAXG=30;
+const $=id=>document.getElementById(id);
+let guests=2, time="";
+try{const p=JSON.parse(localStorage.getItem('zed_prof')||'{}');if(p.name)$('nm').value=p.name;if(p.phone)$('ph').value=p.phone}catch(e){}
+
+/* date: aaj se aage, India ki date ke hisaab se */
+const ist=()=>new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=ist();
+$('dt').min=iso(today);
+const mx=new Date(today);mx.setDate(mx.getDate()+60);$('dt').max=iso(mx);
+$('dt').value=iso(today);
+
+/* guests */
+function paintG(){$('gn').textContent=guests;$('gl').textContent=guests===1?'guest':'guests';$('gm').disabled=guests<=1;$('gp').disabled=guests>=MAXG;sum()}
+$('gm').onclick=()=>{guests--;paintG()};
+$('gp').onclick=()=>{guests++;paintG()};
+
+/* time slots, har 30 min */
+const fmt=(h,m)=>{const ap=h>=12?'PM':'AM';const hh=h%12||12;return hh+':'+String(m).padStart(2,'0')+' '+ap};
+const groups=[["Lunch",11,16],["Evening",16,19],["Dinner",19,23]];
+function paintSlots(){
+  const isToday=$('dt').value===iso(today);
+  const now=ist();const nowMin=now.getHours()*60+now.getMinutes()+30; /* kam se kam 30 min baad */
+  let any=false,html='';
+  groups.forEach(([g,a,b])=>{
+    let chips='';
+    for(let h=a;h<b;h++)for(const m of [0,30]){
+      const t=h*60+m;if(t<OPEN[0]*60||t>LAST[0]*60+LAST[1])continue;
+      const dis=isToday&&t<nowMin;if(!dis)any=true;
+      const label=fmt(h,m);
+      chips+=`<button type="button" class="chip${label===time?' on':''}" data-t="${label}" ${dis?'disabled':''}>${label}</button>`;
+    }
+    if(chips)html+=`<div class="grp">${g}</div><div class="chips">${chips}</div>`;
+  });
+  $('slots').innerHTML=any?html:'<p class="sub" style="margin:0">Aaj ke liye slot khatam ho gaye. Koi aur date chuno ya call karein.</p>';
+  if(time&&!$('slots').querySelector('.chip.on'))time='';
+  $('slots').querySelectorAll('.chip:not(:disabled)').forEach(c=>c.onclick=()=>{time=c.dataset.t;paintSlots();sum()});
+}
+$('dt').onchange=()=>{paintSlots();sum()};
+
+function dlabel(){const v=$('dt').value;if(!v)return'';const [y,m,d]=v.split('-').map(Number);
+  return new Date(y,m-1,d).toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
+function sum(){$('sum').innerHTML=`<b>${guests}</b> guest${guests>1?'s':''} · <b>${dlabel()||'date chuno'}</b> · <b>${time||'time chuno'}</b>`}
+
+$('go').onclick=()=>{
+  const name=$('nm').value.trim(),ph=$('ph').value.trim();
+  const e=$('err');e.textContent='';
+  if(!$('dt').value){e.textContent='Visit date chuno.';return}
+  if(!time){e.textContent='Time chuno.';return}
+  if(!name){e.textContent='Apna naam likhein.';return}
+  if(!/^[6-9]\d{9}$/.test(ph)){e.textContent='Sahi 10 digit mobile number likhein.';return}
+  let m=`*Zaika-e-Dilli: Table Booking Request*\nNaam: ${name}\nMobile: ${ph}\nGuests: ${guests}\nDate: ${dlabel()}\nTime: ${time}`;
+  const rq=$('rq').value.trim();if(rq)m+=`\nRequest: ${rq}`;
+  try{localStorage.setItem('zed_prof',JSON.stringify({name,phone:ph}))}catch(x){}
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(m)}`,'_blank');
+};
+paintG();paintSlots();sum();
+</script>
+</body>
+</html>
