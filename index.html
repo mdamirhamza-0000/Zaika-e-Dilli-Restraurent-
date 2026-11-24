@@ -410,5 +410,6 @@ document.querySelectorAll('#bnav a[href^="#"]').forEach(a=>{if(a.dataset.t==='to
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target.id==='top'?'top':'craving';document.querySelectorAll('#bnav a').forEach(x=>x.classList.toggle('on',x.dataset.t===t))}}),{threshold:.4});io.observe($('top'));io.observe($('craving'))}
 renderCats();renderItems();renderCart();
 </script>
+<script src="reveal.js" defer></script>
 </body>
 </html>
