@@ -304,6 +304,24 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
 @keyframes waGlow{0%,100%{box-shadow:0 0 14px 2px rgba(37,211,102,.55),0 6px 18px rgba(0,0,0,.35)}50%{box-shadow:0 0 26px 8px rgba(37,211,102,.75),0 6px 18px rgba(0,0,0,.35)}}
 .fab:hover{transform:scale(1.08)}
 @media(prefers-reduced-motion:reduce){.fab,.fab::before,.fab::after{animation:none}}
+
+/* ====== social logos + WhatsApp glow ====== */
+.soc{grid-template-columns:repeat(2,minmax(0,1fr))}
+.soc a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px 10px;min-width:0}
+.soc .sl{width:54px;height:54px;border-radius:12px;object-fit:contain;background:#fff;padding:5px;flex:0 0 auto}
+.soc .sl.g{padding:10px}
+.soc .st{display:flex;flex-direction:column;min-width:0}
+.soc .st b{font-size:16px;line-height:1.2}
+.soc .st{align-items:center}
+.soc .st small{display:block;font-size:11.5px;overflow-wrap:anywhere;line-height:1.35}
+@media(min-width:900px){.soc{grid-template-columns:repeat(6,minmax(0,1fr))}.soc a{padding:22px 10px}.soc .sl{width:56px;height:56px;border-radius:14px}}
+.fab{width:60px;height:60px;background:#fff;border:0;color:inherit;box-shadow:0 0 0 4px rgba(37,211,102,.28),0 0 22px 6px rgba(37,211,102,.65),0 6px 16px rgba(0,0,0,.35);animation:waglow 2s ease-in-out infinite}
+.fab img{width:42px;height:42px;display:block}
+.fab::before,.fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(37,211,102,.55);z-index:-1;animation:waring 2.4s ease-out infinite}
+.fab::after{animation-delay:1.2s}
+@keyframes waring{0%{transform:scale(1);opacity:.75}100%{transform:scale(2.3);opacity:0}}
+@keyframes waglow{0%,100%{box-shadow:0 0 0 4px rgba(37,211,102,.25),0 0 16px 4px rgba(37,211,102,.5),0 6px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 6px rgba(37,211,102,.35),0 0 30px 10px rgba(37,211,102,.8),0 6px 16px rgba(0,0,0,.35)}}
+@media(prefers-reduced-motion:reduce){.fab,.fab::before,.fab::after{animation:none}}
 </style>
 </head>
 <body>
@@ -410,12 +428,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
   <h2>Order &amp; Follow</h2>
   <p class="sub">For online orders, offers and updates.</p>
   <div class="soc">
-    <a href="https://www.zomato.com/ncr/zaika-e-dilli-shahdara-new-delhi/order" target="_blank" rel="noopener"><span class="si"><img src="images/zomato.png" alt="Zomato logo" loading="lazy"></span><b>Zomato</b><small>Order &amp; reviews</small></a>
-    <a href="https://www.swiggy.com/restaurants/zaika-e-dilli-yamuna-vihar-shahdara-75424/dineout" target="_blank" rel="noopener"><span class="si"><img src="images/swiggy.png" alt="Swiggy logo" loading="lazy"></span><b>Swiggy</b><small>Dineout offers</small></a>
-    <a href="https://www.instagram.com/zaika_e_dilli_restaurant/" target="_blank" rel="noopener"><span class="si"><img src="images/instagram.png" alt="Instagram logo" loading="lazy"></span><b>Instagram</b><small>@zaika_e_dilli_restaurant</small></a>
-    <a href="https://www.facebook.com/zaikaedilli/" target="_blank" rel="noopener"><span class="si"><img src="images/facebook.png" alt="Facebook logo" loading="lazy"></span><b>Facebook</b><small>Zaika-e-dilli Restaurant</small></a>
-    <a href="https://magicpin.in/New-Delhi/Shahdara/Restaurant/Zaika-E-Dilli/store/1b64/" target="_blank" rel="noopener"><span class="si ico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 0 0 6v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-6V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 5v14" stroke-dasharray="2 3"/></svg></span><b>magicpin</b><small>Offers</small></a>
-    <a href="https://www.google.com/maps/search/?api=1&query=Zaika+e+Dilli+Yamuna+Vihar+Shahdara" target="_blank" rel="noopener"><span class="si ico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg></span><b>Google</b><small>Maps &amp; reviews</small></a>
+    <a href="https://www.zomato.com/ncr/zaika-e-dilli-shahdara-new-delhi/order" target="_blank" rel="noopener"><img class="sl" src="images/zomato.png" alt="" onerror="this.remove()"><span class="st"><b>Zomato</b><small>Order &amp; reviews</small></span></a>
+    <a href="https://www.swiggy.com/restaurants/zaika-e-dilli-yamuna-vihar-shahdara-75424/dineout" target="_blank" rel="noopener"><img class="sl" src="images/swiggy.png" alt="" onerror="this.remove()"><span class="st"><b>Swiggy</b><small>Dineout offers</small></span></a>
+    <a href="https://www.instagram.com/zaika_e_dilli_restaurant/" target="_blank" rel="noopener"><img class="sl" src="images/instagram.png" alt="" onerror="this.remove()"><span class="st"><b>Instagram</b><small>@zaika_e_dilli_restaurant</small></span></a>
+    <a href="https://www.facebook.com/zaikaedilli/" target="_blank" rel="noopener"><img class="sl" src="images/facebook.png" alt="" onerror="this.remove()"><span class="st"><b>Facebook</b><small>Zaika-e-dilli Restaurant</small></span></a>
+    <a href="https://magicpin.in/New-Delhi/Shahdara/Restaurant/Zaika-E-Dilli/store/1b64/" target="_blank" rel="noopener"><img class="sl" src="images/magicpin.png" alt="" onerror="this.onerror=null;this.src='images/magicpin-placeholder.svg'"><span class="st"><b>magicpin</b><small>Offers</small></span></a>
+    <a href="https://www.google.com/maps/search/?api=1&query=Zaika+e+Dilli+Yamuna+Vihar+Shahdara" target="_blank" rel="noopener"><img class="sl g" src="images/google.svg" alt="" onerror="this.remove()"><span class="st"><b>Google</b><small>Maps &amp; reviews</small></span></a>
   </div>
 </div></section>
 
