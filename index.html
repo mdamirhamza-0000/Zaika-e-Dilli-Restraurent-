@@ -54,8 +54,27 @@ header{position:sticky;top:0;z-index:30;background:rgba(20,11,8,.92);backdrop-fi
 .open.on .dot{background:var(--ok)}
 /* categories */
 #craving{background:var(--bg2)}
-.cats{display:flex;flex-wrap:wrap;gap:10px}
-@media(max-width:820px){.cats{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}.cat{flex:0 0 auto}}
+.cats{display:flex;flex-wrap:nowrap;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex:1;min-width:0}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto}
+[hidden]{display:none!important}
+.catgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.ctile{position:relative;aspect-ratio:4/3.2;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(135deg,#4a2014,#1d110c);cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;text-align:left;color:var(--cream);font-family:inherit;transition:transform .3s,border-color .3s,box-shadow .3s}
+.ctile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ctile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,11,8,0) 25%,rgba(20,11,8,.88))}
+.ctile .em{position:absolute;top:10px;right:12px;font-size:30px;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.ctile h3{position:relative;z-index:2;font-size:19px;margin-bottom:2px}
+.ctile span.n{position:relative;z-index:2;font-size:12px;color:var(--gold2)}
+.ctile.np{background:linear-gradient(135deg,hsl(var(--h) 45% 24%),#1d110c 85%)}
+.ctile.np .em{top:42%;right:auto;left:50%;transform:translate(-50%,-50%);font-size:58px}
+.ctile:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 34px rgba(0,0,0,.45)}
+.ctile:hover img{transform:scale(1.08)}
+.catbar{position:sticky;top:64px;z-index:15;display:flex;align-items:center;gap:12px;background:var(--bg2);padding:10px 0;margin-bottom:6px}
+.backbtn{flex:0 0 auto;background:transparent;border:1px solid var(--gold);color:var(--gold2);border-radius:99px;padding:9px 16px;font-weight:600;font-size:13px;white-space:nowrap}
+.backbtn:hover{background:var(--gold);color:#2a1700}
+#catview{animation:fadeup .35s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(min-width:900px){.catgrid .ctile h3{font-size:24px}}
 .cat{border:1px solid var(--line);background:var(--panel);color:var(--cream);padding:10px 20px;border-radius:99px;font-size:14px;font-weight:500;transition:.2s}
 .cat:hover{border-color:var(--gold)}
 .cat.on{background:var(--gold);color:#2a1700;border-color:var(--gold)}
@@ -193,13 +212,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
   .hstats b{display:block;font-family:'Playfair Display',serif;font-size:30px;color:var(--gold2);line-height:1.1}
   .hstats span{font-size:13px;color:#d9c7b2}
 
-  /* menu: sticky category sidebar + grid */
-  .menuwrap{display:grid;grid-template-columns:250px 1fr;gap:34px;align-items:start}
-  .cats{flex-direction:column;flex-wrap:nowrap;gap:6px;position:sticky;top:96px;max-height:calc(100vh - 120px);overflow:auto;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:20px;scrollbar-width:thin}
-  .cat{border:0;background:transparent;border-radius:12px;text-align:left;padding:12px 16px;width:100%;color:var(--muted)}
-  .cat:hover{background:rgba(224,168,74,.12);color:var(--cream)}
-  .cat.on{background:var(--gold);color:#2a1700}
-  .menuwrap .items{margin-top:0;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  /* menu */
+  .items{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .catgrid{grid-template-columns:repeat(4,1fr);gap:22px}
+  .ctile{border-radius:24px}
+  .ctile h3{font-size:24px}
+  .catbar{top:76px}
   .cover{height:230px;border-radius:22px;padding:26px}
   .cover h3{font-size:38px}
   .item{border-radius:18px;transition:transform .25s,border-color .25s,box-shadow .25s}
@@ -284,8 +302,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 22px;color:var(--muted);f
   <div class="eyebrow">Our Menu</div>
   <h2>What are you craving today?</h2>
   <p class="sub">Pick a category, add your dishes and send your order on WhatsApp.</p>
-  <div class="menuwrap">
-    <div class="cats" id="cats"></div>
+  <div id="catgrid" class="catgrid"></div>
+  <div id="catview" hidden>
+    <div class="catbar">
+      <button class="backbtn" id="backbtn" type="button">← All categories</button>
+      <div class="cats" id="cats"></div>
+    </div>
     <div class="items" id="items"></div>
   </div>
   <p class="note">* Half / Full prices as per our menu card. Government taxes extra as per actual.</p>
@@ -426,10 +448,27 @@ const ITEM={},flat={};
 Object.values(MENU).flat().forEach(i=>{if(i.sec)return;ITEM[i.n]=i;if(i.h&&i.f){flat[i.n+' (Half)']={p:i.h};flat[i.n+' (Full)']={p:i.f}}else flat[i.n]={p:i.p}});
 const save=()=>{try{localStorage.setItem('zed_cart',JSON.stringify(cart))}catch(e){}};
 
+const cnt=c=>MENU[c].filter(i=>!i.sec).length;
+function renderGrid(){
+  $('catgrid').innerHTML=Object.keys(MENU).map(c=>{const m=CATMETA[c]||['',''];
+    return `<button type="button" class="ctile" data-c="${c}" style="--h:${(Object.keys(MENU).indexOf(c)*47+10)%360}"><img src="images/${m[0]}" alt="" loading="lazy" onerror="this.parentNode.classList.add('np');this.remove()"><span class="em">${m[1]}</span><h3>${c}</h3><span class="n">${cnt(c)} items</span></button>`}).join('');
+  $('catgrid').querySelectorAll('.ctile').forEach(b=>b.onclick=()=>openCat(b.dataset.c));
+}
+function openCat(c){
+  cat=c;$('catgrid').hidden=true;$('catview').hidden=false;
+  renderCats();renderItems();
+  const on=$('cats').querySelector('.cat.on');if(on&&on.scrollIntoView)on.scrollIntoView({inline:'center',block:'nearest'});
+  const top=$('craving').getBoundingClientRect().top+window.scrollY-70;window.scrollTo({top:top,behavior:'smooth'});
+}
+function closeCat(){
+  $('catview').hidden=true;$('catgrid').hidden=false;
+  const top=$('craving').getBoundingClientRect().top+window.scrollY-70;window.scrollTo({top:top,behavior:'smooth'});
+}
 function renderCats(){
   $('cats').innerHTML=Object.keys(MENU).map(c=>`<button class="cat ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('');
-  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderCats();renderItems()});
+  $('cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderCats();renderItems();b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})});
 }
+$('backbtn').onclick=closeCat;
 function ctl(n){const q=cart[n]||0;
   return q?`<span class="qty"><button data-a="-" data-n="${n}">−</button>${q}<button data-a="+" data-n="${n}">+</button></span>`:`<button class="add" data-a="+" data-n="${n}">ADD</button>`}
 const slug=n=>n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -444,7 +483,7 @@ function renderItems(){
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]');if(!b)return;
   const n=b.dataset.n;cart[n]=Math.max(0,(cart[n]||0)+(b.dataset.a==='+'?1:-1));if(!cart[n])delete cart[n];
-  save();renderItems();renderCart();
+  save();renderItems();renderSig();renderCart();
 });
 function totals(){let c=0,t=0,u=0;for(const n in cart){c+=cart[n];const p=flat[n]&&flat[n].p;if(p)t+=p*cart[n];else u+=cart[n]}return{c,t,u}}
 function renderCart(){
@@ -476,7 +515,8 @@ document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.m;do
 
 /* signature + gallery */
 const sp=n=>{const i=ITEM[n];return i&&!i.h&&i.p?'₹'+i.p:''};
-$('sig').innerHTML=SIG.map(([n,e,f])=>`<div class="sigc"><div class="ph">${e}<img src="images/${f}" alt="${n}" onerror="this.remove()"></div><div class="b"><h3>${n}</h3><span>${sp(n)}</span><div style="margin-top:8px">${ctlFor(n)}</div></div></div>`).join('');
+function renderSig(){$('sig').innerHTML=SIG.map(([n,e,f])=>`<div class="sigc"><div class="ph">${e}<img src="images/${f}" alt="${n}" onerror="this.remove()"></div><div class="b"><h3>${n}</h3><span>${sp(n)}</span><div style="margin-top:8px">${ctlFor(n)}</div></div></div>`).join('');}
+renderSig();
 const gal=$('gal'),lb=$('lb');
 $('gallery').style.display='none';
 GALLERY.forEach((f,i)=>{const d=document.createElement('div');d.className='g';
@@ -504,7 +544,7 @@ paintLogin();
 /* bottom nav active state */
 document.querySelectorAll('#bnav a[href^="#"]').forEach(a=>{if(a.dataset.t==='top'||a.dataset.t==='craving')a.addEventListener('click',()=>{document.querySelectorAll('#bnav a').forEach(x=>x.classList.toggle('on',x===a))})});
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target.id==='top'?'top':'craving';document.querySelectorAll('#bnav a').forEach(x=>x.classList.toggle('on',x.dataset.t===t))}}),{threshold:.4});io.observe($('top'));io.observe($('craving'))}
-renderCats();renderItems();renderCart();
+renderGrid();renderCart();
 </script>
 <script src="reveal.js" defer></script>
 </body>
